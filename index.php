@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario CURP</title>
+</head>
+<body>
+
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container">
+        <h2>Formulario CURP</h2>
+        <form>
+            <label for="curp">CURP:</label>
+            <input type="text" id="curp" maxlength="18" oninput="completarNombre()" required>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" readonly>
+
+            <label for="apellidoP">Apellido Paterno:</label>
+            <input type="text" id="apellidoP" readonly>
+
+            <label for="apellidoM">Apellido Materno:</label>
+            <input type="text" id="apellidoM" readonly>
+        </form>
+    </div>
+
+
+    <!-- Cargar el archivo JavaScript correctamente -->
+    <script src="app.js"></script>
+
+</body>
+</html>
