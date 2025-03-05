@@ -1,6 +1,7 @@
 <?php
 $qrUrl = isset($_GET['qrUrl']) ? urldecode($_GET['qrUrl']) : '';
 $success = isset($_GET['success']) && $_GET['success'] == 'true';
+$error = isset($_GET['success']) && $_GET['success'] == 'false';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,40 +10,53 @@ $success = isset($_GET['success']) && $_GET['success'] == 'true';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de registro</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="registro.css">
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.5.1.slim.js"></script>
-    <script src="js/popper.min.js"></script>
+    <link rel="stylesheet" href="registro/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="registro/registro.css">
+    <script src="registro/bootstrap/js/bootstrap.min.js"></script>
+    <script src="registro/js/jquery-3.5.1.slim.js"></script>
+    <script src="registro/js/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <?php include 'menu.php'; ?>
+
     <div class="container">
-        <h2>Registro</h2>
-        <div class="row">
+        <h2 class="titulo">Registro</h2>
+        <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="guardar.php" method="POST" onsubmit="mostrarLoader()">
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre" class="label" >Nombre</label>
                         <input type="text" name="nombre" id="nombre" class="form-control" required>
-                        <label for="apellidoP">Apellido Paterno</label>
+                        <label for="apellidoP" class="label">Apellido Paterno</label>
                         <input type="text" name="apellido_p" id="apellidoP" class="form-control" required>
-                        <label for="apellidoM">Apellido Materno</label>
+                        <label for="apellidoM"class="label">Apellido Materno</label>
                         <input type="text" name="apellido_m" id="apellidoM" class="form-control" required>
-                        <label for="grado">Grado Académico</label>
-                        <input type="text" name="grado" id="grado" class="form-control" required>
-                        <label for="escolaridad">Escolaridad</label>
+                        <label for="grado" class="label">Grado Académico</label>
+                        <select name="grado" id="grado" class="form-select" required>
+                            <option selected>Selecciona una opción</option>
+                            <option value="ciuadadano">Ciuadadano</option>
+                            <option value="Lic">Lic.</option>
+                            <option value="Ing">Ing.</option>
+                            <option value="Dr">Dr.</option>
+                            
+                        </select>
+                        <label for="escolaridad" class="label">Escolaridad</label>
                         <select name="escolaridad" id="escolaridad" class="form-select" required>
                             <option selected>Selecciona una opción</option>
                             <option value="edu_b">Educación Básica</option>
                             <option value="nivel_m">Nivel Medio Superior</option>
                             <option value="nivel_s">Nivel Superior</option>
                         </select>
-                        <label for="email">Correo electronico</label>
+                        <label for="email" class="label" >Correo electronico</label>
                         <input type="email" name="email" id="email" class="form-control" required>
+                        <input type="hidden" id="tipo" name="tipo" value="">
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-3 " >Enviar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -90,10 +104,29 @@ $success = isset($_GET['success']) && $_GET['success'] == 'true';
             timer: 1500
         });
         <?php endif; ?>
+        <?php if ($error): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'El correo ya ha sido registrado',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        <?php endif; ?>
+
     });
     </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var tipoInput = document.getElementById("tipo");
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            tipoInput.value = "MV";
+        } else {
+            tipoInput.value = "PC";
+        }
+    });
+</script>
 
-    <script src="app.js"></script>
+    
 
 </body>
 
