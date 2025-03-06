@@ -126,7 +126,8 @@ $error = isset($_GET['success']) && $_GET['success'] == 'false';
     });
 </script>
 
-    
+<script>
+
 
 </body>
 
